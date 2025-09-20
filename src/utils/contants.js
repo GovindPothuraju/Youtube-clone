@@ -1,6 +1,7 @@
 
-const GOOGLE_API="AIzaSyAXQY0iYy3R89eYg3hSPkvEMf_PrUxZzbg";
 
+require('dotenv').config();
+const GOOGLE_API = process.env.API_KEY;
 export const LIVE_CHAT_COUNT = 25;
 
 export const YOUTUBE_VIDEOS_API =
