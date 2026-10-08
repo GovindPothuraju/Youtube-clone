@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { closeMenu } from "../utils/appSlice";
 import { useSearchParams } from "react-router-dom";
@@ -9,7 +10,9 @@ const WatchPage=()=>{
   const [searchParams] = useSearchParams();
 
   const dispatch=useDispatch();
-  dispatch(closeMenu());
+  useEffect(() => {
+    dispatch(closeMenu());
+  }, [dispatch]);
 
   return(
     <div className="flex flex-col w-full ml-20">

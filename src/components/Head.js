@@ -15,6 +15,11 @@ const Head = () => {
   const searchCache = useSelector((store) => store.search);
 
   useEffect(() => {
+    if (!searchQuery.trim()) {
+      setSuggestions([]);
+      return;
+    }
+
     const timer = setTimeout(() => {
       if (searchCache[searchQuery]) {
         setSuggestions(searchCache[searchQuery]);
@@ -29,14 +34,22 @@ const Head = () => {
   }, [searchQuery]);
 
   const getSearchSuggestions = async () => {
-    const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
-    const json = await data.json();
-    setSuggestions(json[1]);
-    dispatch(
-      cacheResults({
-        [searchQuery]: json[1],
-      })
-    );
+    if (!searchQuery.trim()) return;
+    try {
+      const data = await fetch(YOUTUBE_SEARCH_API + encodeURIComponent(searchQuery));
+      if (!data.ok) return;
+      const json = await data.json();
+      if (json && json[1]) {
+        setSuggestions(json[1]);
+        dispatch(
+          cacheResults({
+            [searchQuery]: json[1],
+          })
+        );
+      }
+    } catch (error) {
+      console.error("Error fetching search suggestions:", error);
+    }
   };
 
   return (

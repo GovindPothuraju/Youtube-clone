@@ -1,7 +1,6 @@
 
 
-require('dotenv').config();
-const GOOGLE_API = process.env.API_KEY;
+const GOOGLE_API = process.env.REACT_APP_GOOGLE_API || process.env.GOOGLE_API || process.env.API_KEY || "AIzaSyAXQY0iYy3R89eYg3hSPkvEMf_PrUxZzbg";
 export const LIVE_CHAT_COUNT = 25;
 
 export const YOUTUBE_VIDEOS_API =
@@ -9,4 +8,4 @@ export const YOUTUBE_VIDEOS_API =
       GOOGLE_API;
 
 
-export const YOUTUBE_SEARCH_API= "http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=";
+export const YOUTUBE_SEARCH_API = "/api/suggestions?client=firefox&ds=yt&q=";
